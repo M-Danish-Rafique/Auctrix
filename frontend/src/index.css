@@ -12,6 +12,17 @@ code {
     monospace;
 }
 
+.bg-red {
+  color: #E22944;
+}
+
+.bg-blue {
+  background-color: #004F70;
+}
+.bg-blue:hover {
+  background-color: #003f58;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

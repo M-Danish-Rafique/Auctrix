@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, Lock, EyeOff, Eye } from 'lucide-react';
 import { FcGoogle } from 'react-icons/fc';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
@@ -66,7 +67,8 @@ const LoginPage = () => {
       <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-8">
         <div className="w-full max-w-md bg-white shadow-lg rounded-xl p-8 space-y-6">
           <div className="text-center">
-            <h2 className="text-3xl font-bold text-gray-800 mb-2">Welcome Back</h2>
+          
+            <img className="mx-auto mb-4" src={require('../images/logo-with-txt.png')} style={{ width: '175px'}}/>
             <p className="text-gray-500">Sign in to continue to your account</p>
           </div>
 
@@ -143,35 +145,34 @@ const LoginPage = () => {
                 </label>
               </div>
 
-              <div className="text-sm">
-                <button type="button" className="font-medium text-blue-600 hover:text-blue-500">
-                  Forgot password?
-                </button>
-              </div>
+            <div className="text-sm">
+              <Link to="/ForgotPassword" className="font-medium text-blue-600 hover:text-blue-500">
+                Forgot password?
+              </Link>
             </div>
-
-            <button
-              type="submit"
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-            >
-              Sign In
-            </button>
-          </form>
-
-          <div className="text-center">
-            <p className="mt-2 text-sm text-gray-600">
-              Don't have an account?{' '}
-              <button type="button" className="font-medium text-blue-600 hover:text-blue-500">
-                Register
-              </button>
-            </p>
           </div>
+
+          <button
+            type="submit"
+            className="bg-blue w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          >
+            Sign In
+          </button>
+        </form>
+
+        <div className="text-center">
+          <p className="mt-2 text-sm text-gray-600">
+            Don't have an account?{' '}
+            <Link to="/Register" className="font-medium text-blue-600 hover:text-blue-500">
+              Register
+            </Link>
+          </p>
         </div>
       </div>
-    </>
+    </div>
   );
 };
-
+// bg-blue-600
 export default LoginPage;
 
 // const LoginPage = () => {

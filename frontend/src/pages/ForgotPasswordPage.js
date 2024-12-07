@@ -1,33 +1,54 @@
 import React, { useState } from 'react';
-import { Mail, ArrowLeft, Check } from 'lucide-react';
+import axios from 'axios'; // Make sure to install axios: npm install axios
+import { Mail, Check, ArrowLeft } from 'lucide-react';
 
 const ForgotPasswordPage = () => {
   const [email, setEmail] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Simulate password reset request
     setIsLoading(true);
+    setError(null);
+
     try {
-      // Simulated API call for password reset
-      await new Promise(resolve => setTimeout(resolve, 1500));
+        // Make API call to test connection
+        const response = await axios.get('http:///127.0.0.1:5000', {
+          headers: {
+            'Content-Type': 'application/json', 
+          },
+        });
       
-      // Set submitted state to true
-      setIsSubmitted(true);
+        // Display the response for debugging purposes
+        alert(`Response received: ${JSON.stringify(response.data)}`);
+      
+        // Set submitted state to true if the response indicates success
+        setIsSubmitted(true);
     } catch (error) {
       console.error('Password reset error:', error);
-      // In a real app, you'd handle error states here
+      
+      // Handle different types of errors
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        setError(error.response.data.message || 'An error occurred');
+      } else if (error.request) {
+        // The request was made but no response was received
+        setError('No response from server. Please check your connection.');
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        setError('Error processing your request');
+      }
     } finally {
       setIsLoading(false);
     }
   };
-
+  
   const handleGoBack = () => {
-    // In a real app, this would typically use React Router
-    console.log('Navigating back to login');
+    // Use React Router navigation instead of this placeholder
+    // history.push('/login');
   };
 
   return (
@@ -36,13 +57,20 @@ const ForgotPasswordPage = () => {
         {!isSubmitted ? (
           <>
             <div className="text-center">
-              <h2 className="text-3xl font-bold text-gray-800 mb-2">Forgot Password</h2>
+              <img className="mx-auto mb-4" src={require('../images/logo-with-txt.png')} style={{ width: '175px'}}/>
+              <h2 className="text-xl font-bold text-gray-800 mb-2">Forgot Password</h2>
               <p className="text-gray-500 mb-6">
                 Enter the email address associated with your account
               </p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
+              {error && (
+                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                  {error}
+                </div>
+              )}
+
               <div className="relative">
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
                   Email Address
@@ -111,7 +139,10 @@ const ForgotPasswordPage = () => {
 
             <div className="flex flex-col space-y-2">
               <button
-                onClick={() => setIsSubmitted(false)}
+                onClick={() => {
+                  setIsSubmitted(false);
+                  setError(null);
+                }}
                 className="w-full py-2 px-4 border border-blue-300 text-blue-600 rounded-lg hover:bg-blue-50 transition-colors"
               >
                 Try Another Email
