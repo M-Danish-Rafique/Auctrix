@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { User, Mail, Lock, Shield, UserCheck } from 'lucide-react';
 import { FcGoogle } from 'react-icons/fc';
+import { Link } from 'react-router-dom';
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
@@ -51,8 +52,8 @@ const handleSubmit = (e) => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-8">
       <div className="w-full max-w-md bg-white shadow-lg rounded-xl p-8 space-y-6">
-        <div className="text-center">
-          <h2 className="text-3xl font-bold text-gray-800 mb-2">Create Account</h2>
+        <div className="text-center">          
+          <img className="mx-auto mb-4" src={require('../images/logo-with-txt.png')} style={{ width: '175px'}}/>          
           <p className="text-gray-500">Sign up to get started</p>
         </div>
 
