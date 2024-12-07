@@ -1,13 +1,22 @@
 import './App.css';
 import Sidebar from './components/Sidebar';
 import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
-import ForgotPasswordPage from './pages/ForgotPasswordPage';
+import React from 'react';
 
+  
 function App() {
+  const isLoggedIn = false;
+
   return (
-    // <LoginPage />
-    <ForgotPasswordPage />
+    <div>
+      {!isLoggedIn ? (
+        <LoginPage />
+        // Render the login page if the user is not logged in
+      ) : (
+        <Sidebar />
+        // Render the main application or protected routes here
+      )}
+    </div>
   );
 }
 
